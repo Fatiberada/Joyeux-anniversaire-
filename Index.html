@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday! ✨</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #050814 0%, #0b112c 50%, #151c3f 100%);
+            --glass-bg: rgba(27, 35, 64, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: #b0b9d6;
+            --accent-pink: linear-gradient(45deg, #ff4081, #ff6e40);
+            --accent-blue: linear-gradient(45deg, #00e5ff, #00a1ff);
+            --glow-yellow: #ffeb3b;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background: var(--bg-gradient); color: var(--text-primary); min-height: 100vh; overflow-x: hidden; position: relative; }
+        .stars-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        .star { position: absolute; background: white; border-radius: 50%; animation: twinkle infinite ease-in-out; }
+        @keyframes twinkle { 0%, 100% { opacity: 0.2; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } }
+        .mouse-glow { position: fixed; width: 400px; height: 400px; background: radial-gradient(circle, rgba(0, 229, 255, 0.08) 0%, rgba(0,0,0,0) 70%); top: -200px; left: -200px; pointer-events: none; z-index: 2; transform: translate(-50%, -50%); transition: transform 0.1s ease-out; }
+        .glass-card { background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 24px; padding: 35px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4); max-width: 650px; width: 90%; margin: 0 auto; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .glass-card:hover { transform: translateY(-5px); box-shadow: 0 20px 45px rgba(0, 229, 255, 0.1); }
+        .section-container { padding: 40px 20px; display: flex; justify-content: center; align-items: center; flex-direction: column; z-index: 5; position: relative; }
+        .text-center { text-align: center; }
+        .hidden { display: none !important; }
+        .glow-text { color: var(--glow-yellow); text-shadow: 0 0 15px rgba(255, 235, 59, 0.4); font-size: 2.2rem; margin-bottom: 15px; }
+        .subtitle { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 30px; }
+        .message-text { font-size: 1.2rem; line-height: 1.7; white-space: pre-line; text-align: left; color: #e2e8f0; }
+        .btn { padding: 16px 36px; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
+        .btn-primary { background: var(--accent-pink); color: white; }
+        .btn-secondary { background: var(--accent-blue); color: #050814; }
+        .btn:hover { transform: scale(1.05) translateY(-2px); }
+        .pulse { animation: buttonPulse 2s infinite; }
+        @keyframes buttonPulse { 0% { box-shadow: 0 0 0 0 rgba(255, 64, 129, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(255, 64, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 64, 129, 0); } }
+        .welcome-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 100; background: var(--bg-gradient); transition: opacity 0.8s ease; }
+        .main-content { position: relative; width: 100%; max-width: 800px; margin: 0 auto; padding-top: 20px; z-index: 10; }
+        .cat-wrapper { font-size: 5rem; cursor: pointer; margin: 20px 0; display: inline-block; animation: catFloat 3s infinite ease-in-out; }
+        @keyframes catFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .speech-bubble { background: #252f5a; padding: 12px 20px; border-radius: 16px; display: inline-block; margin-top: 10px; border: 1px solid var(--glass-border); }
+        .achievement-unlocked { margin-top: 20px; background: linear-gradient(45deg, #4caf50, #8bc34a); padding: 15px; border-radius: 16px; color: white; animation: popIn 0.5s ease-out; }
+        .mission-box { text-align: left; background: rgba(0, 0, 0, 0.2); padding: 20px; border-radius: 16px; margin: 20px 0; border-left: 4px solid #ffeb3b; }
+        .mission-box p { margin-bottom: 8px; font-size: 1.05rem; }
+        .biryani-wrapper { font-size: 5.5rem; cursor: pointer; display: inline-block; transition: transform 0.2s; }
+        .biryani-wrapper:hover { transform: rotate(10deg) scale(1.05); }
+        .click-feedback { position: absolute; color: #4effa2; font-weight: bold; font-size: 1.2rem; pointer-events: none; animation: floatUp 1s ease-out forwards; }
+        @keyframes floatUp { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-60px); } }
+        .terminal-card { background: #080c18; border: 1px solid #222d5a; border-radius: 16px; width: 90%; max-width: 650px; font-family: 'Courier New', Courier, monospace; box-shadow: 0 20px 40px rgba(0,0,0,0.6); overflow: hidden; }
+        .terminal-header { background: #12182d; padding: 12px; display: flex; align-items: center; position: relative; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; display: inline-block; }
+        .red { background: #ff5f56; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #27c93f; }
+        .terminal-title { position: absolute; width: 100%; text-align: center; left: 0; color: var(--text-secondary); }
+        .terminal-body { padding: 25px; color: #00ff66; font-size: 1rem; line-height: 1.6; text-align: left; min-height: 220px; }
+        .achievements-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; width: 90%; max-width: 650px; }
+        .achievement-item { display: flex; flex-direction: column; align-items: center; padding: 25px 15px; }
+        .badge-icon { font-size: 3rem; margin-bottom: 10px; }
+        .final-card { margin-top: 30px; background: rgba(13, 24, 61, 0.85); }
+        .balloon-container, .confetti-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 99; overflow: hidden; }
+        .balloon { position: absolute; width: 50px; height: 65px; border-radius: 50%; animation: floatUpward 6s linear forwards; bottom: -100px; }
+        @keyframes floatUpward { 0% { transform: translateY(0); opacity: 0.9; } 100% { transform: translateY(-120vh); opacity: 0; } }
+        .confetti { position: absolute; width: 10px; height: 10px; animation: confettiFall 4s linear forwards; top: -10px; }
+        @keyframes confettiFall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(105vh) rotate(720deg); opacity: 0; } }
+        @media (max-width: 600px) { .glow-text { font-size: 1.7rem; } .glass-card { padding: 25px 20px; } .achievements-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="mouse-glow" id="mouseGlow"></div>
+    <div class="stars-container" id="starsContainer"></div>
+    <section class="welcome-screen" id="welcomeScreen">
+        <div class="glass-card text-center">
+            <h1 class="glow-text">Happy Birthday, My Friend 🎉</h1>
+            <p class="subtitle">I made a little surprise just for you ❤️</p>
+            <button class="btn btn-primary pulse" onclick="startExperience()">Open My Gift 🎁</button>
+        </div>
+    </section>
+    <main class="main-content hidden" id="mainContent">
+        <section class="section-container">
+            <div class="glass-card text-center"><p id="birthdayMsg" class="message-text"></p></div>
+        </section>
+        <section class="section-container">
+            <div class="glass-card text-center">
+                <h2>Tap the Cute Cat 🐱</h2>
+                <div class="cat-wrapper" onclick="interactWithCat()"><div class="cat-emoji">🐱</div></div>
+                <p id="catBubble" class="speech-bubble">Click me! Purr...</p>
+                <div id="catAchievement" class="achievement-unlocked hidden"><h3>🏆 Achievement Unlocked</h3><p>Official Cat Whisperer 🐱</p></div>
+            </div>
+        </section>
+        <section class="section-container">
+            <div class="glass-card text-center">
+                <h2 class="section-title">Today's Mission 🎯</h2>
+                <div class="mission-box">
+                    <p>✨ Eat lots of biryani.</p>
+                    <p>✨ Smile.</p>
+                    <p>✨ No coding allowed today.</p>
+                </div>
+                <div class="biryani-wrapper" onclick="eatBiryani(event)"><div class="biryani-emoji">🍛</div></div>
+                <div class="click-feedback-container" id="feedbackContainer"></div>
+            </div>
+        </section>
+        <section class="section-container">
+            <div class="terminal-card">
+                <div class="terminal-header">
+                    <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                    <span class="terminal-title">birthday.exe</span>
+                </div>
+                <div class="terminal-body" id="terminalBody"></div>
+            </div>
+        </section>
+        <section class="section-container">
+            <h2 class="text-center glow-text" style="margin-bottom: 30px;">Your Achievements 🏅</h2>
+            <div class="achievements-grid">
+                <div class="glass-card achievement-item"><div class="badge-icon">🐱</div><h4>Cat Approved</h4></div>
+                <div class="glass-card achievement-item"><div class="badge-icon">🍛</div><h4>Biryani Lover</h4></div>
+                <div class="glass-card achievement-item"><div class="badge-icon">💻</div><h4>Coding Master</h4></div>
+                <div class="glass-card achievement-item"><div class="badge-icon">😎</div><h4>Awesome Friend</h4></div>
+            </div>
+        </section>
+        <section class="section-container text-center" style="padding-bottom: 100px;">
+            <button class="btn btn-secondary" id="finalSurpriseBtn" onclick="triggerFinalSurprise()">❤️ Final Surprise</button>
+            <div class="glass-card final-card hidden" id="finalCard"><p id="finalLongMsg" class="message-text"></p></div>
+        </section>
+    </main>
+    <div class="balloon-container" id="balloonContainer"></div>
+    <div class="confetti-container" id="confettiContainer"></div>
+    <script>
+        const introText = `From Morocco 🇲🇦 to India 🇮🇳\n\nThank you for every conversation, every joke, every meme and every memory. I hope this year brings you absolute happiness, grand success, robust health, and many reasons to smile.`;
+        const finalLongText = `Happy Birthday once again!\n\nI hope all your dreams come true and every path you take leads to fulfillment. Thank you for being such an awesome friend through thick and thin.\n\nHave an amazing year ahead! ❤️`;
+        const catPhrases = ["Purr... You're awesome! 🐾", "Meow! Is the biryani ready yet? 🍛", "Scratch my ears and I'll debug your code! 💻", "Soft kitty, warm kitty... 🎶", "Okay, you are officially my favorite human!"];
+        let catClicks = 0;
+        document.addEventListener("DOMContentLoaded", () => { createStars(); setupMouseGlow(); });
+        function createStars() {
+            const container = document.getElementById("starsContainer");
+            const starCount = window.innerWidth < 600 ? 40 : 100;
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement("div"); star.classList.add("star");
+                star.style.width = star.style.height = `${Math.random() * 3 + 1}px`;
+                star.style.top = `${Math.random() * 100}%`; star.style.left = `${Math.random() * 100}%`;
+                star.style.animationDuration = `${Math.random() * 3 + 2}s`; container.appendChild(star);
+            }
+        }
+        function setupMouseGlow() {
+            const glow = document.getElementById("mouseGlow");
+            window.addEventListener("mousemove", (e) => { glow.style.left = `${e.clientX}px`; glow.style.top = `${e.clientY}px`; });
+        }
+        function startExperience() {
+            const welcome = document.getElementById("welcomeScreen"); const mainContent = document.getElementById("mainContent");
+            welcome.style.opacity = "0";
+            setTimeout(() => {
+                welcome.classList.add("hidden"); mainContent.classList.remove("hidden"); window.scrollTo({ top: 0, behavior: 'smooth' });
+                typeEffect("birthdayMsg", introText, 35, () => { runTerminalSimulation(); });
+            }, 800);
+        }
+        function typeEffect(elementId, text, speed, callback) {
+            let index = 0; const element = document.getElementById(elementId); element.textContent = "";
+            function worker() { if (index < text.length) { element.textContent += text[index++]; setTimeout(worker, speed); } else if (callback) { callback(); } }
+            worker();
+        }
+        function interactWithCat() {
+            if (catClicks >= 5) return; catClicks++; const bubble = document.getElementById("catBubble");
+            if (catClicks < 5) { bubble.textContent = catPhrases[catClicks - 1]; } else { bubble.textContent = "Mew! *Nods in deep respect*"; document.getElementById("catAchievement").classList.remove("hidden"); }
+        }
+        function eatBiryani(event) {
+            const feedback = document.createElement("div"); feedback.classList.add("click-feedback"); feedback.textContent = "+100 Happiness Restored 🍛";
+            const rect = event.currentTarget.getBoundingClientRect(); feedback.style.left = `${event.clientX - rect.left}px`; feedback.style.top = `${event.clientY - rect.top}px`;
+            event.currentTarget.appendChild(feedback); setTimeout(() => { feedback.remove(); }, 1000);
+        }
+        function runTerminalSimulation() {
+            const body = document.getElementById("terminalBody");
+            const lines = [
+                { text: "«birthday.exe»", delay: 200, color: "#00e5ff" }, { text: "Loading system components...", delay: 500, color: "#b0b9d6" },
+                { text: "████████████ 100%", delay: 1000, color: "#ffeb3b" }, { text: "STATUS: SUCCESS ✔", delay: 400, color: "#27c93f" },
+                { text: "Happy Birthday!", delay: 400, color: "#ff4081" }, { text: "Debugging Disabled Today ✔", delay: 300, color: "#00ff66" },
+                { text: "Enjoyment Protocols Active ✔", delay: 300, color: "#00ff66" }
+            ];
+            let currentLine = 0;
+            function printLine() { if (currentLine < lines.length) { const lineData = lines[currentLine]; const p = document.createElement("p"); p.style.color = lineData.color; p.textContent = lineData.text; body.appendChild(p); currentLine++; setTimeout(printLine, lineData.delay); } }
+            printLine();
+        }
+        function triggerFinalSurprise() {
+            document.getElementById("finalSurpriseBtn").style.display = "none"; document.getElementById("finalCard").classList.remove("hidden");
+            spawnConfetti(); spawnBalloons(); typeEffect("finalLongMsg", finalLongText, 40);
+        }
+        function spawnConfetti() {
+            const container = document.getElementById("confettiContainer"); const colors = ["#ff4081", "#00e5ff", "#ffeb3b", "#27c93f"];
+            for (let i = 0; i < 70; i++) {
+                const confetti = document.createElement("div"); confetti.classList.add("confetti"); confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; confetti.style.width = confetti.style.height = `${Math.random() * 6 + 6}px`;
+                confetti.style.animationDuration = `${Math.random() * 2 + 2}s`; container.appendChild(confetti);
+            }
+        }
+        function spawnBalloons() {
+            const container = document.getElementById("balloonContainer"); const colors = ["rgba(255, 64, 129, 0.85)", "rgba(0, 229, 255, 0.85)", "rgba(255, 235, 59, 0.85)"];
+            for (let i = 0; i < 20; i++) {
+                const balloon = document.createElement("div"); balloon.classList.add("balloon"); balloon.style.left = `${Math.random() * 85 + 5}%`;
+                balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; balloon.style.animationDuration = `${Math.random() * 3 + 4}s`;
+                container.appendChild(balloon);
+            }
+        }
+    </script>
+</body>
+</html>
